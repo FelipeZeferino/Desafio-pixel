@@ -2,9 +2,8 @@ import './App.css';
 import Data from './data.json'
 import {useState} from 'react'
 import "./SearchBar.css"
-import pixellogo from './images/logopixelfull.png'
+import pixellogo from './images/pixelgbig.png'
 import pixelsmall from './images/pixelbsmall.png'
-import SearchBar from './SearchBar';
 
 function App() {
   const [input,setInput] = useState("")
@@ -16,18 +15,38 @@ function App() {
         <div className='input-wrapper'>
           <img src={pixelsmall}className='pixellogo1'></img>
         <input className="input" value={input} placeholder='Entre com o ID do gateway'onChange={(e)=> setInput(e.target.value)}></input>
-        <img src={pixellogo}alt='pixel-logo' className='bottomImage'></img>
         </div>
         <h2 className='plaintext'>Lista de Gateways</h2>
+        <table>
+          <thead>
+                <tr>
+                    <th>Gateway</th>
+                    <th>Nome do Produto</th>
+                    <th>ModelId</th>
+                    <th>Link</th>
+                </tr>
+                </thead>
+                <tbody>
+                {valorEscolhido.map(gateway => {
+                    return (
+                        <tr key= {gateway._id} className='plaintext'>
+                            <td>{gateway.name}</td>
+                        </tr>
+                        
+                    )
+                    
+                })}
+                </tbody>
+            </table>
           <ul className='lista'>
             {valorEscolhido.map(gateway => (
-              <li key= {gateway._id} className='plaintext' id='gatewaynome'>
+              <tr key= {gateway._id} className='plaintext'>
                 {gateway.name}
-                <ul className='listadevices'>
+                <ul>
                 {gateway.devices.map(device => (
-                  <li key={device._device} className='plaintext'id='bloco'>
-                    {device.modelId}{' '}
-                    
+                  <li key={device._device} className='plaintext'>
+                    {device.modelId} 
+                    <br></br>
                     {device._device}
                     <br></br>
                     {device._device === "31" && (
@@ -38,13 +57,11 @@ function App() {
                   </li> 
                 ))}
                 </ul>
-                </li>
+                </tr>
             ))}
           </ul>
-         
+          <img src={pixellogo}alt='pixel-logo' className='bottomImage'></img>
       </div>
     </div>
   );
 }
-
-export default App;
